@@ -84,7 +84,7 @@ public class LeetCode_94 {
          * @param root
          * @return
          */
-        public List<Integer> inorderTraversalByIteration(List<Integer> list, TreeNode root) {
+        public void inorderTraversalByIteration(List<Integer> list, TreeNode root) {
             Stack<TreeNode> stk = new Stack<TreeNode>();
             //若root == null && stk.isEmpty() 意味着当前轮递归停止且 递归方法栈无待处理的方法任务，整体结束
             while (root != null || !stk.isEmpty()) {
@@ -100,7 +100,6 @@ public class LeetCode_94 {
                 //切换为right，继续模拟递归
                 root = root.right;
             }
-            return list;
         }
 
 
@@ -129,6 +128,22 @@ public class LeetCode_94 {
                 }else {
                     tmpRoot = stack.isEmpty() ? null : stack.pop();
                 }
+            }
+        }
+
+        private void inorder(List<Integer> list, TreeNode root){
+            Stack<TreeNode> stack = new Stack<>();
+            TreeNode tmpRoot = root;
+            while (tmpRoot != null || !stack.isEmpty()){
+                stack.push(tmpRoot);
+                tmpRoot = tmpRoot.left;
+
+                if (tmpRoot == null){
+                    tmpRoot = stack.pop();
+                    list.add(tmpRoot.val);
+                    tmpRoot = tmpRoot.right;
+                }
+
             }
         }
 

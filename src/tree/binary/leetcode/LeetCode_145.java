@@ -7,16 +7,16 @@ import java.util.Stack;
 /**
  * 145. 二叉树的后序遍历
  * 给定一个二叉树，返回它的 后序 遍历。
- *
+ * <p>
  * 示例:
- *
+ * <p>
  * 输入: [1,null,2,3]
- *    1
- *     \
- *      2
- *     /
- *    3
- *
+ * 1
+ * \
+ * 2
+ * /
+ * 3
+ * <p>
  * 输出: [3,2,1]
  * 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
  * 来源：力扣（LeetCode）
@@ -29,8 +29,14 @@ public class LeetCode_145 {
         int val;
         TreeNode left;
         TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) { this.val = val; }
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
             this.left = left;
@@ -38,10 +44,12 @@ public class LeetCode_145 {
         }
 
     }
+
     class Solution {
 
         /**
          * 后序遍历
+         *
          * @param root
          * @return
          */
@@ -53,8 +61,8 @@ public class LeetCode_145 {
         }
 
         private void postorderTraversalByRecursion(List<Integer> list, TreeNode tmpRoot) {
-            if (tmpRoot == null){
-                return ;
+            if (tmpRoot == null) {
+                return;
             }
             postorderTraversalByRecursion(list, tmpRoot.left);
             postorderTraversalByRecursion(list, tmpRoot.right);
@@ -63,10 +71,11 @@ public class LeetCode_145 {
 
         /**
          * 此法缺点，仅适用于二叉树，不适用N叉树
+         *
          * @param list
          * @param root
          */
-        private void postorderTraversalByIteration(List<Integer> list, TreeNode root){
+        private void postorderTraversalByIteration(List<Integer> list, TreeNode root) {
             Stack<TreeNode> stk = new Stack<TreeNode>();
             // 通过prevDoneNode记录上一个被记录的node，以判断当前节点的右子节点是否已记录完成
             //      若是则意味着该节点的子节点后续遍历已完成，该记录当前节点了
@@ -82,11 +91,11 @@ public class LeetCode_145 {
                 //stk.pop方法等效模拟了方法栈返回的结果
                 root = stk.pop();
                 //切换为right，继续模拟递归
-                if (root.right == null || root.right == prevDoneNode){
+                if (root.right == null || root.right == prevDoneNode) {
                     list.add(root.val);
                     prevDoneNode = root;
                     root = null;
-                }else {
+                } else {
                     stk.push(root);
                     root = root.right;
                 }
@@ -94,7 +103,28 @@ public class LeetCode_145 {
             return;
         }
 
+        private void postorderTraversalByIteration1(List<Integer> list, TreeNode root) {
+            Stack<TreeNode> stk = new Stack<TreeNode>();
+            TreeNode prev = null;
+            stk.push(root);
+            while (!stk.isEmpty()) {
+                TreeNode peek = stk.peek();
+                boolean isLeaf = peek.left == null && peek.right == null;
+                boolean prevIsPeekChild = prev != null && (prev == peek.left || prev == peek.right);
+                if (isLeaf || prevIsPeekChild) {
+                    prev = stk.pop();
+                    list.add(prev.val);
+                } else {
+                    if (peek.right != null) {
+                        stk.push(peek.right);
+                    }
+                    if (peek.left != null) {
+                        stk.push(peek.left);
+                    }
+                }
 
+            }
+        }
 
 
     }

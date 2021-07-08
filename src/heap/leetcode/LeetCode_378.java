@@ -77,8 +77,8 @@ public class LeetCode_378 {
     }
 
     public static void main(String[] args) {
-        int[][] matrix = {{1,5,9},{10,11,13},{12,13,15}};
-        int k = 8;
+        int[][] matrix = {{3,5,7},{9,11,13},{13,15,17}};
+        int k = 3;
         int i = new LeetCode_378().kthSmallest(matrix, k);
         System.out.println(i);
 
