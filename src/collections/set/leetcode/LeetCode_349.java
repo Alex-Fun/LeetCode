@@ -1,14 +1,7 @@
 package collections.set.leetcode;
 
-import demo.P1;
-
-import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicStampedReference;
-import java.util.concurrent.atomic.LongAdder;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 349. 两个数组的交集

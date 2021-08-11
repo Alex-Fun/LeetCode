@@ -46,48 +46,9 @@ public class LeetCode_23 {
 
 
     public ListNode mergeKLists(ListNode[] lists) {
-        //return mergeByHeap(lists);
-        return mergeByHeap2(lists);
+        return mergeByHeap(lists);
     }
 
-    private List<ListNode> nodes;
-
-    private ListNode mergeByHeap2(ListNode[] lists) {
-        if (lists == null || lists.length == 0) {
-            return null;
-        }
-        nodes = new LinkedList();
-        for (int i = 0; i < lists.length; i++) {
-            if (lists[i] != null) {
-                nodes.add(lists[i]);
-            }
-        }
-        ListNode head = new ListNode();
-        ListNode tail = head;
-        ListNode min = null;
-        while (!nodes.isEmpty()) {
-            //min
-            ListNode node;
-            for (int i = 0; i < nodes.size(); i++) {
-                node = nodes.get(i);
-
-                min = min == null || min.val > node.val ? node : min;
-            }
-            //add to tail
-            if (min == null) {
-                break;
-            }
-            tail.next = min;
-            tail = tail.next;
-            //move to next
-            nodes.remove(min);
-            if (min.next != null) {
-                nodes.add(min.next);
-            }
-            min = null;
-        }
-        return head.next;
-    }
 
     private ListNode mergeByHeap(ListNode[] lists) {
         PriorityQueue<ListNode> heap = new PriorityQueue<ListNode>((x, y) -> {
